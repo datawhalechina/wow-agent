@@ -34,7 +34,6 @@ from typing import List
 from zigent.agents import ABCAgent, BaseAgent
 from zigent.llm.agent_llms import BaseLLM, LLMConfig, LangchainChatModel
 from zigent.commons import TaskPackage
-from zigent.logging.terminal_logger import AgentLogger
 from zigent.actions.BaseAction import BaseAction
 from duckduckgo_search import DDGS
 ```
