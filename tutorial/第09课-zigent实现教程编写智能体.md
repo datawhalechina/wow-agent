@@ -32,6 +32,8 @@ llm = LangchainChatModel(llm_config)
 
 ## 引入相关依赖
 
+引入 Zigent 框架中实现智能体所需的各种功能和工具，以便后续的代码可以使用这些类和函数来构建智能体的行为和逻辑。引入 datetime 以便生成命名教程目录。
+
 ```python
 from typing import List, Dict
 from zigent.llm.agent_llms import LLMConfig, get_llm_backend, BaseLLM, LangchainChatModel
@@ -44,6 +46,8 @@ import json
 ```
 
 ## 定义生成教程的目录 Action 类
+
+定义 `WriteDirectoryAction` 类，继承自 `BaseAction`。该类的主要功能是生成一个教程的目录结构。具体来说，它通过调用大语言模型（LLM）来根据给定的主题和语言生成一个符合特定格式的目录。
 
 ```python
 class WriteDirectoryAction(BaseAction):
@@ -87,6 +91,8 @@ class WriteDirectoryAction(BaseAction):
 
 ## 定义生成教程内容的 Action 类
 
+`WriteContentAction` 类用于生成教程内容。它的 `__call__` 方法接收标题、章节、语言和目录数据，并构建一个内容提示，最后调用 LLM 生成相应的内容。
+
 ```python
 class WriteContentAction(BaseAction):
     """Generate tutorial content action"""
@@ -128,6 +134,8 @@ class WriteContentAction(BaseAction):
 
 ## 定义教程编写智能体
 
+定义 `TutorialAssistant` 类，继承自 `BaseAgent`，用于生成教程内容。其主要功能包括：初始化目录和内容生成的动作（`WriteDirectoryAction` 和 `WriteContentAction`）、`_generate_tutorial` 方法根据目录数据生成完整的教程内容包括目录和每个章节的详细内容、`_add_tutorial_example` 方法为助手添加一个示例任务并展示如何生成一个 Python 教程的目录和内容。最终调用 `__call__` 方法处理生成教程的任务。它从任务中提取主题，生成目录结构，然后生成完整的教程内容，并将结果保存到b本地。
+
 ```python
 class TutorialAssistant(BaseAgent):
     """Tutorial generation assistant that manages directory and content creation"""
@@ -150,11 +158,7 @@ class TutorialAssistant(BaseAgent):
         self.language = language
         self.directory_action = WriteDirectoryAction()
         self.content_action = WriteContentAction()
-        
-        # Share LLM with actions
-        self.directory_action.llm = llm
-        self.content_action.llm = llm
-
+    
         # Add example for the tutorial assistant
         self._add_tutorial_example()
         
@@ -205,7 +209,6 @@ class TutorialAssistant(BaseAgent):
         
         # Generate complete tutorial
         tutorial_content = self._generate_tutorial(directory_result["directory_data"])
-        # tutorial_content = self._add_tutorial_example(directory_result["directory_data"])
 
         # Save the result
         task.answer = tutorial_content
@@ -264,6 +267,8 @@ class TutorialAssistant(BaseAgent):
 ```
 
 ## 交互式操作调用教程编写智能体
+
+在主程序中，创建 `TutorialAssistant` 实例并调用其 `__call__` 方法，实现交互式生成教程的功能。用户可以输入要创建的教程主题，然后调用 `TutorialAssistant` 生成相应的教程内容，并将结果保存到本地文件。
 
 ```python
 if __name__ == "__main__":
