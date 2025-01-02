@@ -1,0 +1,10 @@
+openai
+python-dotenv
+pydantic
+llama-index-core
+llama-index-readers-file
+llama-index-vector-stores-faiss
+llama-index-vector-stores-qdrant
+llamaindex-py-client
+qdrant-client
+requests

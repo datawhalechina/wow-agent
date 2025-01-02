@@ -1,6 +1,6 @@
 # 初识 Zigent：构建你的又一个智能搜索代理
 
-Zigent 是一个基于 [Agentlize](https://github.com/SalesforceAIResearch/AgentLite) 框架改进的智能代理开发框架。Agentlize 最初由 Salesforce AI Research 团队开发，是一个强大的 Agent 开发框架。Zigent 在其基础上进行了定制化改进，使其更适合特定场景的应用。
+Zigent 是一个基于 [Agentlite](https://github.com/SalesforceAIResearch/AgentLite) 框架改进的智能代理开发框架。Agentlite 最初由 Salesforce AI Research 团队开发，是一个强大的 Agent 开发框架。Zigent 在其基础上进行了定制化改进，使其更适合特定场景的应用。
 
 在本课中，我们将学习如何使用 Zigent 框架创建一个简单但功能完整的搜索代理。这个代理能够通过 DuckDuckGo 搜索引擎查找信息并回答问题。
 
@@ -13,7 +13,7 @@ Zigent 是一个基于 [Agentlize](https://github.com/SalesforceAIResearch/Agent
 pip install zigent duckduckgo_search
 ```
 
-准备大模型相关的环境，比如```api_key```和```base_url```,此处使用自孰提供的大模型服务: http://43.200.7.56:8008 。
+准备大模型相关的环境，比如```api_key```和```base_url```,此处使用自塾提供的大模型服务: http://43.200.7.56:8008 。
 
 ```python
 import os
