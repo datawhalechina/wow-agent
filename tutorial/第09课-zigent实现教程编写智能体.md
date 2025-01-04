@@ -9,25 +9,16 @@
 ```python
 import os
 from dotenv import load_dotenv
-from zigent.llm.agent_llms import BaseLLM, LLMConfig, LangchainChatModel
+from zigent.llm.agent_llms import LLM
 
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('WOWRAG_API_KEY')
+api_key = os.getenv('ZISHU_API_KEY')
 base_url = "http://43.200.7.56:8008/v1"
 chat_model = "glm-4-flash"
 
-llm_config = LLMConfig( 
-    {
-        "base_url": base_url,
-        "api_key": api_key,
-        "llm_name": chat_model,
-        "temperature": "0.0",
-    }
-)
-
-llm = LangchainChatModel(llm_config)
+llm = LLM(api_key=api_key, base_url=base_url, model_name=chat_model)
 ```
 
 ## 引入相关依赖
@@ -36,7 +27,7 @@ llm = LangchainChatModel(llm_config)
 
 ```python
 from typing import List, Dict
-from zigent.llm.agent_llms import LLMConfig, get_llm_backend, BaseLLM, LangchainChatModel
+from zigent.llm.agent_llms import LLM
 from zigent.actions import BaseAction, ThinkAct, FinishAct
 from zigent.agents import BaseAgent
 from zigent.commons import TaskPackage, AgentAct

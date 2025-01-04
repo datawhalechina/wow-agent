@@ -38,18 +38,13 @@ c.close()
 con.close()
 ```
 
-然后配置对话模型和嵌入模型。
+然后配置对话模型。可以直接用第03课用OurLLM创建的llm，这里采用了本地模型。
 ```python
 # 配置对话模型
 from llama_index.llms.ollama import Ollama
 llm = Ollama(base_url="http://192.168.0.123:11434", model="qwen2:7b")
 ```
 
-```python
-# 配置嵌入模型
-from llama_index.embeddings.ollama import OllamaEmbedding
-embedding = OllamaEmbedding(base_url="http://192.168.0.123:11434", model_name="qwen2:7b")
-```
 
 导入Llama-index相关的库，并配置对话模型和嵌入模型。
 ```python
@@ -61,10 +56,8 @@ from llama_index.core import SQLDatabase
 from llama_index.core.query_engine import NLSQLTableQueryEngine  
 from sqlalchemy import create_engine, select  
 
-# 构建本地嵌入模型
-Settings.embed_model = embedding
 
-# 创建本地大模型  
+# 配置本地大模型  
 Settings.llm = llm
 ```
 

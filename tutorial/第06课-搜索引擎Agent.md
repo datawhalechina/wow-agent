@@ -92,7 +92,7 @@ for chunk in response:
 ```python
 from llama_index.core.tools import FunctionTool
 import requests
-
+# 需要先把BOCHA_API_KEY填写到.env文件中去。
 BOCHA_API_KEY = os.getenv('BOCHA_API_KEY')
 
 # 定义Bocha Web Search工具

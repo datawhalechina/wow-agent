@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('WOWRAG_API_KEY')
+api_key = os.getenv('ZISHU_API_KEY')
 base_url = "http://43.200.7.56:8008/v1"
 chat_model = "glm-4-flash"
 ```
@@ -32,7 +32,7 @@ chat_model = "glm-4-flash"
 ```python
 from typing import List
 from zigent.agents import ABCAgent, BaseAgent
-from zigent.llm.agent_llms import BaseLLM, LLMConfig, LangchainChatModel
+from zigent.llm.agent_llms import LLM
 from zigent.commons import TaskPackage
 from zigent.actions.BaseAction import BaseAction
 from duckduckgo_search import DDGS
@@ -40,25 +40,21 @@ from duckduckgo_search import DDGS
 
 ## 配置 LLM
 
-我们需要配置大语言模型。这里使用 zigent 封装的 LLMConfig 和 LangchainChatModel 加载和配置 LLM 服务：
+我们需要配置大语言模型。这里使用 zigent 封装的 LLM加载和配置 LLM 服务：
 
 ```python
-llm_config = LLMConfig( 
-    {
-        "base_url": base_url,
-        "api_key": api_key,
-        "llm_name": chat_model,
-        "temperature": "0.0",
-    }
-)
-
-llm = LangchainChatModel(llm_config)
+llm = LLM(api_key=api_key, base_url=base_url, model_name=chat_model)
+response = llm.run("你是谁？")
+print(response)
 ```
+我是一个人工智能助手，专门设计来帮助用户解答问题、提供信息以及执行各种任务。我的目标是成为您生活中的助手，帮助您更高效地获取所需信息。有什么我可以帮您的吗？
+
+
 
 ## 创建搜索动作
 
 首先，我们需要创建一个搜索动作类，它将处理与 DuckDuckGo 的具体交互：
-
+需要注意的是，DuckDuckGo需要科学上网。
 ```python
 class DuckSearchAction(BaseAction):
     def __init__(self) -> None:

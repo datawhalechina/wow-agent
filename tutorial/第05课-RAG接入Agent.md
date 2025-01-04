@@ -1,6 +1,8 @@
 我们可以把RAG当作Agent可以调用的一个工具。
 
-先配置对话模型和嵌入模型
+先配置对话模型和嵌入模型。模型的构建可以参考wow-rag课程的第二课（https://github.com/datawhalechina/wow-rag/tree/main/tutorials），里面介绍了非常多配置对话模型和嵌入模型的方式。这里采用了本地Ollama的对话模型和嵌入模型。各种配置方式都可以，只要能有个能用的llm和embedding就行。
+
+如果运行还算顺利，可以顺便给wow-rag和wow-agent项目都点个小星星吗？谢谢！！！
 
 ```python
 # 配置chat模型

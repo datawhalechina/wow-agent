@@ -20,19 +20,30 @@ base_url = "https://open.bigmodel.cn/api/paas/v4/"
 chat_model = "glm-4-flash"
 ```
 
-对于阿里的千问：
-```python
-base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
-chat_model = "qwen-plus"
-```
-
-我们这里以智谱为例。
-
 在项目的根目录新建一个txt文件，把文件名改成.env。需要注意的是，前面这个点儿不能省略。因为这个文件就叫做dotenv，dot就是点儿的意思。
 里面填入一行字符串：
 ZHIPU_API_KEY=你的api_key
 
 把ZHIPU_API_KEY写到.env文件的原因是为了保密，同时可以方便地在不同的代码中读取。
+
+
+对于阿里的千问：
+```python
+base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+chat_model = "qwen-plus"
+```
+.env请模仿上边智谱的例子自行创建。
+
+对于自塾提供的默认API
+```python
+base_url = "http://43.200.7.56:8008/v1"
+chat_model = "glm-4-flash"
+```
+本项目自带的.env可以直接拿来用。里面就是自塾提供的api_key。
+
+我们这里以自塾默认API为例。
+
+
 
 咱们现在先把四样前菜准备一下吧：
 
@@ -43,8 +54,8 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('ZHIPU_API_KEY')
-base_url = "https://open.bigmodel.cn/api/paas/v4/"
+api_key = os.getenv('ZISHU_API_KEY')
+base_url = "http://43.200.7.56:8008/v1"
 chat_model = "glm-4-flash"
 ```
 
