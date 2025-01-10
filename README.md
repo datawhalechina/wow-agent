@@ -8,14 +8,14 @@
 
 ## 目录
 - 第01课-什么是Agent
-第02课-手搓一个土得掉渣的Agent
-第03课-用Llama-index创建Agent
-第04课-数据库对话Agent
-第05课-RAG接入Agent
-第06课-搜索引擎Agent
-第07课-初识Zigent
-第08课-Zigent实现哲学家多智能体
-第09课-zigent实现教程编写智能体
+- 第02课-手搓一个土得掉渣的Agent
+- 第03课-用Llama-index创建Agent
+- 第04课-数据库对话Agent
+- 第05课-RAG接入Agent
+- 第06课-搜索引擎Agent
+- 第07课-初识Zigent
+- 第08课-Zigent实现哲学家多智能体
+- 第09课-zigent实现教程编写智能体
 
 
 ## 贡献者名单
