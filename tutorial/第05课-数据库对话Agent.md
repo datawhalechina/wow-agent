@@ -38,7 +38,7 @@ c.close()
 con.close()
 ```
 
-然后配置对话模型。可以直接用第03课用OurLLM创建的llm，这里采用了本地模型。
+然后配置对话模型。可以直接用上一课用OurLLM创建的llm，这里采用了本地模型。
 ```python
 # 配置对话模型
 from llama_index.llms.ollama import Ollama
@@ -98,8 +98,8 @@ staff_tool = QueryEngineTool.from_defaults(
 ```
 
 ```python
-# 构建ReActAgent
-agent = ReActAgent.from_tools([multiply_tool, add_tool, staff_tool], verbose=True)  
+# 构建ReActAgent，可以加很多函数，在这里只加了加法函数和部门人数查询函数。
+agent = ReActAgent.from_tools([add_tool, staff_tool], verbose=True)  
 # 通过agent给出指令
 response = agent.chat("请从数据库表中获取`专利部`和`商标部`的人数，并将这两个部门的人数相加！")  
 ```
@@ -123,3 +123,6 @@ Answer: 专利部和商标部的总人数为47人。
 print(response)
 ```
 专利部和商标部的总人数为47人。
+
+
+注：目前这个功能不太稳定，上面这个结果看起来不错，但是是运行了好几次才得到这个结果的。或许是因为本地模型不够强大。换个更强的模型会更好。

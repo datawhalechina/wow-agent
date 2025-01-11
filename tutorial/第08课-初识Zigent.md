@@ -6,11 +6,11 @@ Zigent 是一个基于 [Agentlite](https://github.com/SalesforceAIResearch/Agent
 
 ## 环境准备
 
-首先，我们需要准备必要的环境和依赖，比如安装 Zigent：
+首先，我们需要准备必要的环境和依赖：
 
 ```bash
 # 建议 Python > 3.8
-pip install zigent duckduckgo_search
+pip install duckduckgo_search
 ```
 
 准备大模型相关的环境，比如```api_key```和```base_url```,此处使用自塾提供的大模型服务: http://43.200.7.56:8008 。
@@ -176,3 +176,164 @@ Observation: Microsoft was founded on April 4, 1975.
 ==========
 response: Microsoft was founded on April 4, 1975.
 ```
+
+
+如果不想通过科学上网，可以利用上一课中提到的bocha搜索API。
+
+```python
+BOCHA_API_KEY = os.getenv('BOCHA_API_KEY')
+import requests
+import json
+# 定义Bocha Web Search工具
+def bocha_web_search_tool(query: str, count: int = 8) -> str:
+    """
+    使用Bocha Web Search API进行联网搜索，返回搜索结果的字符串。
+    
+    参数:
+    - query: 搜索关键词
+    - count: 返回的搜索结果数量
+
+    返回:
+    - 搜索结果的字符串形式
+    """
+    url = 'https://api.bochaai.com/v1/web-search'
+    headers = {
+        'Authorization': f'Bearer {BOCHA_API_KEY}',  # 请替换为你的API密钥
+        'Content-Type': 'application/json'
+    }
+    data = {
+        "query": query,
+        "freshness": "noLimit", # 搜索的时间范围，例如 "oneDay", "oneWeek", "oneMonth", "oneYear", "noLimit"
+        "summary": True, # 是否返回长文本摘要总结
+        "count": count
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+
+    if response.status_code == 200:
+        # 返回给大模型的格式化的搜索结果文本
+        # 可以自己对博查的搜索结果进行自定义处理
+        return json.dumps(response.json())
+    else:
+        raise Exception(f"API请求失败，状态码: {response.status_code}, 错误信息: {response.text}")
+```
+
+```python
+class BochaSearchAction(BaseAction):
+    def __init__(self) -> None:
+        action_name = "Bocha_Search"
+        action_desc = "Using this action to search online content."
+        params_doc = {"query": "the search string. be simple."}
+        super().__init__(
+            action_name=action_name, 
+            action_desc=action_desc, 
+            params_doc=params_doc,
+        )
+
+    def __call__(self, query):
+        results = bocha_web_search_tool(query)
+        rst = json.loads(results)
+        result = ""
+        for item in rst["data"]["webPages"]["value"]:
+            result += item["summary"]
+        return result
+```
+
+
+```python
+search_action = BochaSearchAction()
+results = search_action("上海有哪些私立小学在招聘小学英语老师？")
+print(results)
+```
+初中英语教师
+ 06-24 
+15-21K/月
+上海-普陀区 1年以上 全职
+高老师021–56080869
+初中物理教师
+ 06-24 
+15-21K/月
+上海-普陀区 1年以上 全职
+高老师021–5608086...上海市七宝外国语小学现因学校发展需要，特招聘优秀的 语文、数学、英语老师 。
+应聘条件
+1.本科及以上学历，具有教师资格证者；
+2.相关专业毕业，有教学经验者优先；
+3.性格开朗、耐心细致、责任心强。
+联系方式
+潘老师：64195394-3207
+邮箱地址： qbwgyxx@126.com （有意向的老师请将简历发至邮箱）
+学校地址：闵行区新镇路79号
+学校简介
+上海市七宝外国语小学创办于2005年，属于民办非企业单位，是一所具有鲜明外语特色的优质民办学校，现为闵行区实验小学教育集团成员校。
+学校现有30个教学班，一千三百余位学生，百余位教职工。学校以“助力每个孩子卓越成长”为核心理念，以养成教育、英语特色、思维培养、个性激发为着力点，通过精细化的管理为培养具有“家国情怀、世界眼光、知文达礼、卓立胜己”的卓越学生而竭智尽力，赢得了家长与社会的广泛赞誉。
+多元的学习空间
+丰富的校园活动
+图文：上海市七宝外国语小学
+转录编辑：吴王天呈（实习）
+(点击图片查看)
+上观号作者：今日闵行
+
+
+```python
+search_action = BochaSearchAction()
+class BochaSearchAgent(BaseAgent):
+    def __init__(
+        self,
+        llm: LLM,
+        actions: List[BaseAction] = [search_action],
+        manager: ABCAgent = None,
+        **kwargs
+    ):
+        name = "bocha_search_agent"
+        role = "You can answer questions by using bocha search content."
+        super().__init__(
+            name=name,
+            role=role,
+            llm=llm,
+            actions=actions,
+            manager=manager,
+        )
+```
+
+```python
+def do_search_agent():
+    # 创建代理实例
+    search_agent = BochaSearchAgent(llm=llm)
+
+    # 创建任务
+    task = "what is the found date of microsoft"
+    task_pack = TaskPackage(instruction=task)
+
+    # 执行任务并获取响应
+    response = search_agent(task_pack)
+    print("response:", response)
+```
+
+```python
+do_search_agent()
+```
+可以执行，但是貌似有些问题，后续还需要调试一下源代码。
+Agent bocha_search_agent receives the following TaskPackage:
+[
+	Task ID: 54eea4c0-3af8-4cce-9cdd-20e1e3f2ba36
+	Instruction: what is the found date of microsoft
+]
+====bocha_search_agent starts execution on TaskPackage 54eea4c0-3af8-4cce-9cdd-20e1e3f2ba36====
+Agent bocha_search_agent takes 0-step Action:
+{
+	name: Bocha_Search[{"query": "found date of Microsoft"}}
+	params: {}
+}
+Observation: "This is the wrong action to call. Please check your available action list.
+Agent bocha_search_agent takes 1-step Action:
+{
+	name: Action:Bocha_Search[{"query": "when was Microsoft founded"}]
+	params: {}
+}
+Observation: "This is the wrong action to call. Please check your available action list.
+Agent bocha_search_agent takes 2-step Action:
+{
+	name: Action:Bocha_Search[{"query": "when was Microsoft founded"}]
+	params: {}
+}
+Observation: "This is the wrong action to call. Please check your available action list.

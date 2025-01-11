@@ -14,6 +14,9 @@ from llama_index.embeddings.ollama import OllamaEmbedding
 embedding = OllamaEmbedding(base_url="http://192.168.0.123:11434", model_name="qwen2:7b")
 ```
 
+上边这个llm和embedding有很多方法可以构建。详情参见wow-rag的第二课。
+
+
 然后构建索引
 ```python
 # 从指定文件读取，输入为List
