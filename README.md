@@ -1,21 +1,41 @@
 # wow-agent
 
-我们想要建立一个适合部署在企业的简易Agent教程和框架指南。
+我们想要建立一个适合部署在企业的简易Agent教程和框架指南。wow-agent致力于在代码行数和依赖库数量之间取得均衡的最小值，用最划算的方式帮助您在本地搭建AI Agent，嵌入到您的生产工作环节中。
 
 ## 项目受众
 
 想要在企业内部实现Agent自动办公的人。
 
 ## 目录
-- 第01课-什么是Agent
-第02课-手搓一个土得掉渣的Agent
-第03课-用Llama-index创建Agent
-第04课-数据库对话Agent
-第05课-RAG接入Agent
-第06课-搜索引擎Agent
-第07课-初识Zigent
-第08课-Zigent实现哲学家多智能体
-第09课-zigent实现教程编写智能体
+
+- 第01课-什么是wow-agent
+#### task01 openai库搭建AI Agent
+- 第02课-手搓一个土得掉渣的Agent
+- 第03课-OpenAI实现阅卷智能体
+#### task02 Llama-index库搭建AI Agent
+- 第04课-用Llama-index创建Agent
+- 第05课-数据库对话Agent
+- 第06课-RAG接入Agent
+- 第07课-搜索引擎Agent
+#### task03 Zigent库搭建AI Agent
+- 第08课-初识Zigent
+- 第09课-Zigent实现哲学家多智能体
+- 第10课-Zigent实现教程编写智能体
+#### task04 metaGPT库搭建AI Agent
+- 第11课-metaGPT安装和配置
+- 第12课-metaGPT快速尝鲜
+- 第13课-单动作单智能体
+- 第14课-多动作单智能体
+- 第15课-技术教程智能体
+- 第16课-订阅智能体
+- 第17课-单动作多智能体
+- 第18课-辩论智能体
+- 第19课-软件公司智能体
+- 第20课-多动作多智能体
+- 第21课-狼人杀智能体
+- 第22课-虚拟小镇智能体
+
+
 
 
 ## 贡献者名单
@@ -24,7 +44,7 @@
 | :----| :---- | :---- |
 | [黎伟](https://github.com/omige) | 项目负责人 | 规划教程整体 |
 | [胡琦](https://github.com/hu-qi) | zigent章节 | 塾员 |
-| 珞索 | metagpt章节 | 塾员 |
+| 珞索 | metagpt章节 | 塾员 | 
 
 
 ## 参与贡献

@@ -1,3 +1,22 @@
+wow-agent是自塾（zishu.co）出品的第三个开源项目。自塾在2024年出品了三个开源项目，分别是：
+
+https://github.com/datawhalechina/wow-fullstack  
+https://github.com/datawhalechina/wow-rag  
+https://github.com/datawhalechina/wow-agent  
+
+2025年计划稳定在这三款开源项目中，持续打磨迭代。
+
+通过观察市场上比较流行的开源多智能体框架，例如 metagpt、crewai、camel-ai、autogen，我们会发现这些框架安装起来有很多依赖，我们来看看安装一个metagpt-simple的依赖有多少？说出来可能吓你一跳，有下面这116个依赖库。注意哦，这可是metagpt的简易版本，如果要安装带其他功能的版本，还会增加许多依赖库。crewai的依赖库数量可能更多。
+
+ruamel.yaml, rsa, referencing, pylance, pyasn1-modules, protobuf, portalocker, Pillow, pathable, overrides, networkx, mypy-extensions, more-itertools, mdurl, MarkupSafe, lxml, loguru, libcst, lazy-object-proxy, jupyterlab-widgets, joblib, jmespath, isodate, importlib-metadata, hyperframe, httplib2, hpack, grpcio, gitdb, future, fire, faiss_cpu, et-xmlfile, diskcache, dill, deprecation, deprecated, defusedxml, cloudpickle, click, chardet, cffi, camel-converter, cachetools, asgiref, anytree, aiolimiter, aiofiles, werkzeug, volcengine-python-sdk, typing-inspect, scikit_learn, python_docx, proto-plus, prance, playwright, pandas, opentelemetry-proto, opentelemetry-api, openpyxl, multiprocess, markdown-it-py, jsonschema-specifications, jsonschema-path, jinja2, h2, gymnasium, grpcio-tools, googleapis-common-protos, google-auth, gitpython, Django, curl-cffi, cryptography, cloudevents, botocore, bce-python-sdk, azure-core, zhipuai, ta, s3transfer, rich, pydantic-settings, opentelemetry-semantic-conventions, opentelemetry-exporter-otlp-proto-common, lancedb, jsonschema, ipywidgets, grpcio-status, google-auth-httplib2, google-api-core, channels, anthropic, typer, spark_ai_python, qdrant-client, opentelemetry-sdk, openapi-schema-validator, nbformat, msal, meilisearch, google-api-python-client, dashscope, boto3, qianfan, opentelemetry-exporter-otlp-proto-http, openapi-spec-validator, nbclient, msal-extensions, google-ai-generativelanguage, openapi_core, google-generativeai, azure-identity, agentops, semantic-kernel, metagpt-simple
+
+
+框架本来是用于减少我们的代码量，但是如果我们只是想要实现一个简易的功能，但是用了这个框架却给你安装了上百个依赖库，你觉得划算吗？
+
+所以，（此处应该有掌声，或者，点个star吧！）wow-agent 应运而生。wow-agent致力于在代码行数和依赖库数量之间取得均衡的最小值，用最划算的方式帮助您在本地搭建AI Agent，嵌入到您的生产工作环节中。
+
+好的，既然我们的目标是构建AI Agent，那就让我们先来学习一下Agent的基本概念吧！谷歌不是2025年元旦左右时候出了个《New whitepaper Agents》嘛？我们把谷歌的这个PDF文件丢给智谱，让智谱给我们根据这个PDF文件写个Agent综述，于是就有了下面这篇短文：
+
 生成式AI模型（LLMs）近年来取得了惊人的进步，能够创作文本、图像、代码等，展现出巨大的潜力。然而，LLMs仍然存在局限性，它们无法与外界互动，知识局限于训练数据，限制了其应用范围。为了突破这一限制，我们引入了“Agents”的概念，即能够利用工具与外界交互，并根据目标进行自主决策和行动的智能体。
 ### Agents的诞生：从LLMs到自主行动
 LLMs强大的语言理解和生成能力，为构建Agents奠定了基础。然而，LLMs的局限性也显而易见：
