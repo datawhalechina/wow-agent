@@ -143,8 +143,8 @@ input_data = [
   这个示例是根据中国专利法出的两个考题。我们让大模型来阅卷。
 
   ```python
-  # 运行Chain
-graded_data = grading_index.run(input_data)
+  # 运行智能体
+graded_data = grading_openai.run(input_data)
 print(graded_data)
 ```
 
