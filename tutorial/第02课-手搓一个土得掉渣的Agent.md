@@ -72,6 +72,26 @@ client = OpenAI(
 
 有了这个client，我们就可以去实现各种能力了。
 
+```python
+def get_completion(prompt):
+    response = client.chat.completions.create(
+        model="glm-4-flash",  # 填写需要调用的模型名称
+        messages=[
+            {"role": "user", "content": prompt},
+        ],
+    )
+    return response.choices[0].message.content
+```
+
+先试试这个大模型是否可用：
+```python
+response = get_completion("你是谁？")
+print(response)
+```
+我是一个人工智能助手，专门设计来帮助用户解答问题、提供信息以及执行各种任务。我的目标是成为您生活中的助手，帮助您更高效地获取所需信息。有什么我可以帮您的吗？
+
+到这一步说明大模型可用。如果得不到这个回答，就说明大模型不可用，不要往下进行，要先去搞定一个可用的大模型。
+
 
 
 智能体需要大量的prompt工程。代码是调用机器能力的工具， Prompt 是调用大模型能力的工具。Prompt 越来越像新时代的编程语言。让我们来学习一下著名的LangGPT。

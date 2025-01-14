@@ -16,12 +16,30 @@ embedding = OllamaEmbedding(base_url="http://192.168.0.123:11434", model_name="q
 
 上边这个llm和embedding有很多方法可以构建。详情参见wow-rag的第二课。
 
+```python
+# 测试对话模型
+response = llm.complete("你是谁？")
+print(response)
+```
+我是一个人工智能助手，专门设计来帮助用户解答问题、提供信息以及执行各种任务。我的目标是成为您生活中的助手，帮助您更高效地获取所需信息。有什么我可以帮您的吗？
+
+```python
+# 测试嵌入模型
+emb = embedding.get_text_embedding("你好呀呀")
+len(emb), type(emb)
+```
+输出 (1024, list)
+
+说明配置成功。
+
+
+
 
 然后构建索引
 ```python
 # 从指定文件读取，输入为List
 from llama_index.core import SimpleDirectoryReader,Document
-documents = SimpleDirectoryReader(input_files=['./docs/问答手册.txt']).load_data()
+documents = SimpleDirectoryReader(input_files=['../docs/问答手册.txt']).load_data()
 
 # 构建节点
 from llama_index.core.node_parser import SentenceSplitter
@@ -35,7 +53,8 @@ from llama_index.vector_stores.faiss import FaissVectorStore
 import faiss
 from llama_index.core import StorageContext, VectorStoreIndex
 
-vector_store = FaissVectorStore(faiss_index=faiss.IndexFlatL2(3584))
+emb = embedding.get_text_embedding("你好呀呀")
+vector_store = FaissVectorStore(faiss_index=faiss.IndexFlatL2(len(emb)))
 storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
 index = VectorStoreIndex(
@@ -50,7 +69,7 @@ index = VectorStoreIndex(
 # 构建检索器
 from llama_index.core.retrievers import VectorIndexRetriever
 # 想要自定义参数，可以构造参数字典
-kwargs = {'similarity_top_k': 5, 'index': index, 'dimensions': 3584} # 必要参数
+kwargs = {'similarity_top_k': 5, 'index': index, 'dimensions': len(emb)} # 必要参数
 retriever = VectorIndexRetriever(**kwargs)
 
 # 构建合成器
@@ -68,19 +87,22 @@ engine = RetrieverQueryEngine(
 用RAG回答一下试试效果：
 ```python
 # 提问
-question = "请问商标注册需要提供哪些文件？"
+question = "What are the applications of Agent AI systems ?"
 response = engine.query(question)
 for text in response.response_gen:
     print(text, end="")
 ```
 这会输出
-对于商标注册，所需提供的文件如下：
 
-- 如果申请人是企业，需要提供申请人的营业执照复印件、授权委托书以及商标图案的电子档，具体商品或服务名称。
-  
-- 若国内自然人申请商标，则需提交个体工商户档案和自然人身份证复印件、授权委托书及商标图案的电子档，具体商品或服务名称。值得注意的是，国内纯粹的自然人目前不能直接申请商标。
+Agent AI systems have a variety of applications, which include:
 
-- 国外自然人可以申请商标，需要提供护照、授权委托书以及商标图案的电子档，具体商品或服务名称。
+1. Interactive AI: Enhancing user interactions and providing personalized experiences.
+2. Content Generation: Assisting in the creation of content for bots and AI agents, which can be used in various applications such as customer service or storytelling.
+3. Productivity: Improving productivity in applications by enabling tasks like replaying events, paraphrasing information, predicting actions, and synthesizing scenarios (both 3D and 2D).
+4. Healthcare: Ethical deployment in sensitive domains like healthcare, which could potentially improve diagnoses and patient care while also addressing health disparities.
+5. Gaming Industry: Transforming the role of developers by shifting focus from scripting non-player characters to refining agent learning processes.
+6. Robotics and Manufacturing: Redefining manufacturing roles and requiring new skill sets, rather than replacing human workers, as adaptive robotic systems are developed.
+7. Simulation: Learning collaboration policies within simulated environments, which can be applied to the real world with careful consideration and safety measures.
 
 
 我们可以把这个RAG当作一个工具给Agent调用，让它去思考。
@@ -113,7 +135,8 @@ agent = ReActAgent.from_tools(query_engine_tools, llm=llm, verbose=True)
 调用Agent
 ```python
 # 让Agent完成任务
-response = agent.chat("请问商标注册需要提供哪些文件？")
+# response = agent.chat("请问商标注册需要提供哪些文件？")
+response = agent.chat("What are the applications of Agent AI systems ?")
 print(response)
 ```
 输出
