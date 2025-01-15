@@ -109,7 +109,7 @@ print(results)
 class DuckSearchAgent(BaseAgent):
     def __init__(
         self,
-        llm: BaseLLM,
+        llm: LLM,
         actions: List[BaseAction] = [DuckSearchAction()],
         manager: ABCAgent = None,
         **kwargs

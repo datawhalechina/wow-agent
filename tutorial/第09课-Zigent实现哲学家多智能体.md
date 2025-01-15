@@ -33,7 +33,7 @@ class Philosopher(BaseAgent):
     def __init__(
         self,
         philosopher,
-        llm: BaseLLM,
+        llm: LLM,
         actions: List[BaseAction] = [], 
         manager: ABCAgent = None,
         **kwargs
