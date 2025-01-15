@@ -66,7 +66,7 @@ class WriteDirectoryAction(BaseAction):
         """
         
         # 调用 LLM 生成目录
-        directory_data = llm.llm_chain.invoke({"prompt": directory_prompt})
+        directory_data = llm.run(directory_prompt)
         try:
             directory_data = json.loads(directory_data)
         except:
@@ -119,7 +119,7 @@ class WriteContentAction(BaseAction):
         """
         
         # 调用 LLM 生成内容
-        content = llm.llm_chain.invoke({"prompt": content_prompt})
+        content = llm.run(content_prompt)
         return content
 ```
 
@@ -132,7 +132,7 @@ class TutorialAssistant(BaseAgent):
     """Tutorial generation assistant that manages directory and content creation"""
     def __init__(
         self,
-        llm: BaseLLM,
+        llm: LLM,
         language: str = "Chinese"
     ):
         name = "TutorialAssistant"
