@@ -38,12 +38,38 @@ c.close()
 con.close()
 ```
 
-然后配置对话模型。可以直接用上一课用OurLLM创建的llm，这里采用了本地模型。
+先配置对话模型和嵌入模型。模型的构建可以参考wow-rag课程的第二课（https://github.com/datawhalechina/wow-rag/tree/main/tutorials），里面介绍了非常多配置对话模型和嵌入模型的方式。可以直接用上一课用OurLLM创建的llm，这里采用了本地Ollama的对话模型和嵌入模型。各种配置方式都可以，只要能有个能用的llm和embedding就行。
+
+
 ```python
 # 配置对话模型
 from llama_index.llms.ollama import Ollama
 llm = Ollama(base_url="http://192.168.0.123:11434", model="qwen2:7b")
 ```
+
+```python
+# 配置Embedding模型
+from llama_index.embeddings.ollama import OllamaEmbedding
+embedding = OllamaEmbedding(base_url="http://192.168.0.123:11434", model_name="qwen2:7b")
+```
+
+
+```python
+# 测试对话模型
+response = llm.complete("你是谁？")
+print(response)
+```
+我是一个人工智能助手，专门设计来帮助用户解答问题、提供信息以及执行各种任务。我的目标是成为您生活中的助手，帮助您更高效地获取所需信息。有什么我可以帮您的吗？
+
+```python
+# 测试嵌入模型
+emb = embedding.get_text_embedding("你好呀呀")
+len(emb), type(emb)
+```
+输出 (1024, list)
+
+说明配置成功。
+
 
 
 导入Llama-index相关的库，并配置对话模型和嵌入模型。
@@ -57,10 +83,11 @@ from llama_index.core.query_engine import NLSQLTableQueryEngine
 from sqlalchemy import create_engine, select  
 
 
-# 配置本地大模型  
+# 配置默认大模型  
 Settings.llm = llm
+Settings.embed_model = embedding
 ```
-
+这里的llm和embedding只要是llama-index支持的就行，有多种构建方法。详细可参见wow-rag课程的第二课。
 
 ```python
 ## 创建数据库查询引擎  
