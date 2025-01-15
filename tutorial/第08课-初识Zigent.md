@@ -121,8 +121,7 @@ class DuckSearchAgent(BaseAgent):
             role=role,
             llm=llm,
             actions=actions,
-            manager=manager,
-            logger=agent_logger,
+            manager=manager
         )
 ```
 
