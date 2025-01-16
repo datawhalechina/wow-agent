@@ -178,114 +178,120 @@ response: Microsoft was founded on April 4, 1975.
 ```
 
 
-如果不想通过科学上网，可以利用上一课中提到的bocha搜索API。
+如果不想通过科学上网，可以利用 ZhipuAI 的 [web_search](https://open.bigmodel.cn/dev/howuse/websearch) 实现。
+开始前我们需要安装一下 ZhipuAI SDK:
+
+```bash
+pip install --upgrade zhipuai
+```
+并在 `.env` 中新增 `ZHIPU_API_KEY`并填入您的 ZhipuAI APIKey。
+和上文环境准备、配置 LLM，此处新增了 ZhipuAI SDK 的引用以及 ZHIPU_API_KEY 的配置。
 
 ```python
-BOCHA_API_KEY = os.getenv('BOCHA_API_KEY')
-import requests
+import os
 import json
-# 定义Bocha Web Search工具
-def bocha_web_search_tool(query: str, count: int = 8) -> str:
+import requests
+from dotenv import load_dotenv
+from typing import List
+from zigent.agents import BaseAgent, ABCAgent
+from zigent.llm.agent_llms import LLM
+from zigent.commons import TaskPackage
+from zigent.actions.BaseAction import BaseAction
+from zhipuai import ZhipuAI
+from datetime import datetime
+
+# 加载环境变量
+load_dotenv()
+api_key = os.getenv('ZISHU_API_KEY')
+base_url = "http://43.200.7.56:8008/v1"
+chat_model = "Qwen2.5-72B"
+ZHIPU_API_KEY = os.getenv('ZHIPU_API_KEY')
+
+# 配置LLM
+llm = LLM(api_key=api_key, base_url=base_url, model_name=chat_model)
+```
+
+定义Zhipu Web Search工具，使用智谱AI的GLM-4模型进行联网搜索，返回搜索结果的字符串。建议使用免费的 `glm-4-flash`
+
+```python
+# 定义Zhipu Web Search工具
+def zhipu_web_search_tool(query: str) -> str:
     """
-    使用Bocha Web Search API进行联网搜索，返回搜索结果的字符串。
+    使用智谱AI的GLM-4模型进行联网搜索，返回搜索结果的字符串。
     
     参数:
     - query: 搜索关键词
-    - count: 返回的搜索结果数量
 
     返回:
     - 搜索结果的字符串形式
     """
-    url = 'https://api.bochaai.com/v1/web-search'
-    headers = {
-        'Authorization': f'Bearer {BOCHA_API_KEY}',  # 请替换为你的API密钥
-        'Content-Type': 'application/json'
-    }
-    data = {
-        "query": query,
-        "freshness": "noLimit", # 搜索的时间范围，例如 "oneDay", "oneWeek", "oneMonth", "oneYear", "noLimit"
-        "summary": True, # 是否返回长文本摘要总结
-        "count": count
-    }
+    # 初始化客户端
+    client = ZhipuAI(api_key=ZHIPU_API_KEY)
 
-    response = requests.post(url, headers=headers, json=data)
+    # 获取当前日期
+    current_date = datetime.now().strftime("%Y-%m-%d")
 
-    if response.status_code == 200:
-        # 返回给大模型的格式化的搜索结果文本
-        # 可以自己对博查的搜索结果进行自定义处理
-        return json.dumps(response.json())
-    else:
-        raise Exception(f"API请求失败，状态码: {response.status_code}, 错误信息: {response.text}")
+    print("current_date:", current_date)
+    
+    # 设置工具
+    tools = [{
+        "type": "web_search",
+        "web_search": {
+            "enable": True
+        }
+    }]
+
+    # 系统提示模板，包含时间信息
+    system_prompt = f"""你是一个具备网络访问能力的智能助手，在适当情况下，优先使用网络信息（参考信息）来回答，
+    以确保用户得到最新、准确的帮助。当前日期是 {current_date}。"""
+        
+    # 构建消息
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": query}
+    ]
+        
+    # 调用API
+    response = client.chat.completions.create(
+        model="glm-4-flash",
+        messages=messages,
+        tools=tools
+    )
+    
+    # 返回结果
+    return response.choices[0].message.content
 ```
 
+实现 ZhipuSearchAction:
 ```python
-class BochaSearchAction(BaseAction):
+class ZhipuSearchAction(BaseAction):
     def __init__(self) -> None:
-        action_name = "Bocha_Search"
+        action_name = "Zhipu_Search"
         action_desc = "Using this action to search online content."
         params_doc = {"query": "the search string. be simple."}
         super().__init__(
-            action_name=action_name, 
-            action_desc=action_desc, 
+            action_name=action_name,
+            action_desc=action_desc,
             params_doc=params_doc,
         )
 
     def __call__(self, query):
-        results = bocha_web_search_tool(query)
-        rst = json.loads(results)
-        result = ""
-        for item in rst["data"]["webPages"]["value"]:
-            result += item["summary"]
-        return result
+        results = zhipu_web_search_tool(query)
+        return results
 ```
 
-
+实现 ZhipuSearchAgent：
 ```python
-search_action = BochaSearchAction()
-results = search_action("上海有哪些私立小学在招聘小学英语老师？")
-print(results)
-```
-初中英语教师
- 06-24 
-15-21K/月
-上海-普陀区 1年以上 全职
-高老师021–56080869
-初中物理教师
- 06-24 
-15-21K/月
-上海-普陀区 1年以上 全职
-高老师021–5608086...上海市七宝外国语小学现因学校发展需要，特招聘优秀的 语文、数学、英语老师 。
-应聘条件
-1.本科及以上学历，具有教师资格证者；
-2.相关专业毕业，有教学经验者优先；
-3.性格开朗、耐心细致、责任心强。
-联系方式
-潘老师：64195394-3207
-邮箱地址： qbwgyxx@126.com （有意向的老师请将简历发至邮箱）
-学校地址：闵行区新镇路79号
-学校简介
-上海市七宝外国语小学创办于2005年，属于民办非企业单位，是一所具有鲜明外语特色的优质民办学校，现为闵行区实验小学教育集团成员校。
-学校现有30个教学班，一千三百余位学生，百余位教职工。学校以“助力每个孩子卓越成长”为核心理念，以养成教育、英语特色、思维培养、个性激发为着力点，通过精细化的管理为培养具有“家国情怀、世界眼光、知文达礼、卓立胜己”的卓越学生而竭智尽力，赢得了家长与社会的广泛赞誉。
-多元的学习空间
-丰富的校园活动
-图文：上海市七宝外国语小学
-转录编辑：吴王天呈（实习）
-(点击图片查看)
-上观号作者：今日闵行
-
-
-```python
-search_action = BochaSearchAction()
-class BochaSearchAgent(BaseAgent):
+class ZhipuSearchAgent(BaseAgent):
     def __init__(
         self,
         llm: LLM,
-        actions: List[BaseAction] = [search_action],
+        actions: List[BaseAction] = [ZhipuSearchAction()],
         manager: ABCAgent = None,
         **kwargs
     ):
-        name = "bocha_search_agent"
-        role = "You can answer questions by using bocha search content."
+        name = "zhiu_search_agent"
+        role = "You can answer questions by using Zhipu search content."
         super().__init__(
             name=name,
             role=role,
@@ -293,47 +299,55 @@ class BochaSearchAgent(BaseAgent):
             actions=actions,
             manager=manager,
         )
+
 ```
+
+实现 do_search_agent 并调用，这里以 `2025年洛杉矶大火` 为例：
 
 ```python
 def do_search_agent():
     # 创建代理实例
-    search_agent = BochaSearchAgent(llm=llm)
+    search_agent = ZhipuSearchAgent(llm=llm)
 
     # 创建任务
-    task = "what is the found date of microsoft"
+    task = "2025年洛杉矶大火"
     task_pack = TaskPackage(instruction=task)
 
     # 执行任务并获取响应
     response = search_agent(task_pack)
-    print("response:", response)
+    print(response)
+
+if __name__ == "__main__":
+    do_search_agent()
 ```
 
-```python
-do_search_agent()
+预期的返回结果类似：
+
 ```
-可以执行，但是貌似有些问题，后续还需要调试一下源代码。
-Agent bocha_search_agent receives the following TaskPackage:
+Agent zhiu_search_agent receives the following TaskPackage:
 [
-	Task ID: 54eea4c0-3af8-4cce-9cdd-20e1e3f2ba36
-	Instruction: what is the found date of microsoft
+        Task ID: c18ec1b9-dfdd-441b-9b62-8354f803a7a4
+        Instruction: 2025年洛杉矶大火
 ]
-====bocha_search_agent starts execution on TaskPackage 54eea4c0-3af8-4cce-9cdd-20e1e3f2ba36====
-Agent bocha_search_agent takes 0-step Action:
+====zhiu_search_agent starts execution on TaskPackage c18ec1b9-dfdd-441b-9b62-8354f803a7a4====
+Agent zhiu_search_agent takes 0-step Action:
 {
-	name: Bocha_Search[{"query": "found date of Microsoft"}}
-	params: {}
+        name: Zhipu_Search
+        params: {'query': '2025年洛杉矶大火'}
 }
-Observation: "This is the wrong action to call. Please check your available action list.
-Agent bocha_search_agent takes 1-step Action:
+current_date: 2025-01-16
+Observation: 2025年洛杉矶大火是美国历史上最为严重的自然灾害之一。这场大火始于1月7日，起火地点位于洛杉矶东北部的帕萨迪纳地区。火灾迅速蔓延，主要得益于干燥的植被和强劲的圣安娜风，风速达到每小时160公里，相当[TLDR]
+Agent zhiu_search_agent takes 1-step Action:
 {
-	name: Action:Bocha_Search[{"query": "when was Microsoft founded"}]
-	params: {}
+        name: Finish
+        params: {'response': '2025年洛杉矶大火是美国历史上最严重的自然灾害之一，始于1月7日，主要由于干燥的植被和强劲的圣安娜风导致。这场火灾烧毁了超过12,000公顷的土地，数千栋 建筑被毁，造成至少24人死亡，约18万人被迫撤离。经济损失可能达到1350亿至1500亿美元。'}
 }
-Observation: "This is the wrong action to call. Please check your available action list.
-Agent bocha_search_agent takes 2-step Action:
-{
-	name: Action:Bocha_Search[{"query": "when was Microsoft founded"}]
-	params: {}
-}
-Observation: "This is the wrong action to call. Please check your available action list.
+Observation: Task Completed.
+=========zhiu_search_agent finish execution. TaskPackage[ID:c18ec1b9-dfdd-441b-9b62-8354f803a7a4] status:
+[
+        completion: completed
+        answer: 2025年洛杉矶大火是美国历史上最严重的自然灾害之一，始于1月7日，主要由于干燥的植被和强劲的圣安娜风导致。这场火灾烧毁了超过12,000公顷的土地，数千栋建筑被毁，造成 至少24人死亡，约18万人被迫撤离。经济损失可能达到1350亿至1500亿美元。
+]
+==========
+2025年洛杉矶大火是美国历史上最严重的自然灾害之一，始于1月7日，主要由于干燥的植被和强劲的圣安娜风导致。这场火灾烧毁了超过12,000公顷的土地，数千栋建筑被毁，造成至少24人死亡，约18万人被迫撤离。经济损失可能达到1350亿至1500亿美元。
+```

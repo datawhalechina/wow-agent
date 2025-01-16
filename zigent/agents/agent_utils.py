@@ -16,19 +16,33 @@ def name_checking(name: str):
 
 
 def act_match(input_act_name: str, act: BaseAction):
-    if input_act_name == act.action_name:  # exact match
+    """Check if input action name matches the action name, supporting both formats:
+    - Action:action_name[params]
+    - action_name[params]
+    """
+    # Remove "Action:" prefix if present
+    if input_act_name.startswith("Action:"):
+        input_act_name = input_act_name[len("Action:"):]
+    
+    # Exact match
+    if input_act_name == act.action_name:
         return True
-    ## To-Do More fuzzy match
+    
+    # To-Do More fuzzy match
     return False
 
 
 def parse_action(string: str) -> tuple[str, dict, bool]:
     """
     Parse an action string into an action type and an argument.
+    Supports both formats:
+    - Action:action_name[params]
+    - action_name[params]
     """
-
     string = string.strip(" ").strip(".").strip(":").split("\n")[0]
-    pattern = r"^(\w+)\[(.+)\]$"
+    
+    # Match both formats
+    pattern = r"^(?:Action:)?(\w+)\[(.+)\]$"
     match = re.match(pattern, string)
     PARSE_FLAG = True
 
