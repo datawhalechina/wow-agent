@@ -210,7 +210,7 @@ class QuizGeneratorAgent(BaseAgent):
     def _add_quiz_example(self):
         """Add an illustration example for the quiz generator"""
         exp_task = json.dumps({
-            "audience": "零基础",  # 水平
+            "audience": "零基础",  # 受众
             "purpose": "测试Python基础知识掌握情况", # 目的
             "question_types": ["单选题", "多选题", "填空题"] # 题型
         })
@@ -227,7 +227,7 @@ class QuizGeneratorAgent(BaseAgent):
             params={
                 "content": "Python基础内容...",
                 "question_types": ["单选题", "多选题", "填空题"],
-                "audience": "大学生",
+                "audience": "零基础",
                 "purpose": "测试Python基础知识掌握情况"
             }
         )
