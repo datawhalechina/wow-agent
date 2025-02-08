@@ -205,6 +205,60 @@ class QuizGeneratorAgent(BaseAgent):
         task.completion = "completed"
         
         return task
+
+
+    def _add_quiz_example(self):
+        """Add an illustration example for the quiz generator"""
+        exp_task = json.dumps({
+            "audience": "零基础",  # 受众
+            "purpose": "测试Python基础知识掌握情况", # 目的
+            "question_types": ["单选题", "多选题", "填空题"] # 题型
+        })
+        exp_task_pack = TaskPackage(instruction=exp_task)
+        
+        act_1 = AgentAct(
+            name=ThinkAct.action_name,
+            params={INNER_ACT_KEY: """首先，我会加载Markdown内容，然后根据受众群体和考察目的生成考卷。"""}
+        )
+        obs_1 = "OK. 开始加载Markdown内容。"
+        
+        act_2 = AgentAct(
+            name=self.quiz_action.action_name,
+            params={
+                "content": "Python基础内容...",
+                "question_types": ["单选题", "多选题", "填空题"],
+                "audience": "零基础",
+                "purpose": "测试Python基础知识掌握情况"
+            }
+        )
+        obs_2 = """# Python基础测试
+        1. Python是什么类型的语言?
+            - (x) 解释型
+            - ( ) 编译型
+        # (x)为正确答案"""
+        
+        act_3 = AgentAct(
+            name=self.save_action.action_name,
+            params={
+                "quiz_content": obs_2,
+                "quiz_title": "Python基础测试"
+            }
+        )
+        obs_3 = {"file_path": "2025-01-15_03-37-40/Python基础测试.md", "quiz_url": "/2025-01-15_03-37-40/Python基础测试.md"}
+        
+        act_4 = AgentAct(
+            name=FinishAct.action_name,
+            params={INNER_ACT_KEY: "考卷生成并保存成功。"}
+        )
+        obs_4 = "考卷生成任务完成。"
+        
+        exp_act_obs = [(act_1, obs_1), (act_2, obs_2), (act_3, obs_3), (act_4, obs_4)]
+        
+        self.prompt_gen.add_example(
+            task=exp_task_pack,
+            action_chain=exp_act_obs
+        )
+
 ```
 
 ## 使用示例
