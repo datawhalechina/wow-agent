@@ -13,7 +13,7 @@ Zigent 是一个基于 [Agentlite](https://github.com/SalesforceAIResearch/Agent
 pip install duckduckgo_search
 ```
 
-准备大模型相关的环境，比如```api_key```和```base_url```,此处使用自塾提供的大模型服务: http://43.200.7.56:8008 。
+准备大模型相关的环境，比如```api_key```和```base_url```,此处使用自塾提供的大模型服务: http://101.132.164.17:8000 。
 
 ```python
 import os
