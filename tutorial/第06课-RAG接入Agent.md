@@ -25,7 +25,7 @@ print(response)
 
 ```python
 # 测试嵌入模型
-emb = embedding.get_text_embedding("你好呀呀")
+emb = embedding.get_text_embedding("你是谁？")
 len(emb), type(emb)
 ```
 输出 (1024, list)

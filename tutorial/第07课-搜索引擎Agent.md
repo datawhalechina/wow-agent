@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('WOWRAG_API_KEY')
-base_url = "http://43.200.7.56:8008/v1"
+api_key = os.getenv('ZISHU_API_KEY')
+base_url = "http://101.132.164.17:8000/v1"
 chat_model = "glm-4-flash"
 emb_model = "embedding-3"
 ```
@@ -88,6 +88,10 @@ for chunk in response:
     print(chunk, end="", flush=True)
 ```
 我是一个人工智能助手，名叫 ChatGLM，是基于清华大学 KEG 实验室和智谱 AI 公司于 2024 年共同训练的语言模型开发的。我的任务是针对用户的问题和要求提供适当的答复和支持。
+
+
+国内目前没有免费的搜索引擎API，做得最好的就是博查，博查是收费的，需要先去开通博查的账号，充钱，得到BOCHA_API_KEY。如何开通博查API可以查阅一下其他资料。
+
 
 ```python
 from llama_index.core.tools import FunctionTool

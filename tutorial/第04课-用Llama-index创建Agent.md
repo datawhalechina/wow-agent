@@ -29,7 +29,7 @@ from dotenv import load_dotenv
 load_dotenv()
 # 从环境变量中读取api_key
 api_key = os.getenv('ZISHU_API_KEY')
-base_url = "http://43.200.7.56:8008/v1"
+base_url = "http://101.132.164.17:8000/v1"
 chat_model = "glm-4-flash"
 emb_model = "embedding-3"
 ```

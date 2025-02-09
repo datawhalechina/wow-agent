@@ -27,16 +27,17 @@ ZHIPU_API_KEY=你的api_key
 把ZHIPU_API_KEY写到.env文件的原因是为了保密，同时可以方便地在不同的代码中读取。
 
 
-对于阿里的千问：
+对于阿里云：
 ```python
+api_key = "sk-b197b7b4ef6b4a96a8e41d82c2414af0"
 base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
-chat_model = "qwen-plus"
+chat_model = "qwen-max-latest"
 ```
 .env请模仿上边智谱的例子自行创建。
 
 对于自塾提供的默认API
 ```python
-base_url = "http://43.200.7.56:8008/v1"
+base_url = "http://101.132.164.17:8000/v1"
 chat_model = "glm-4-flash"
 ```
 本项目自带的.env可以直接拿来用。里面就是自塾提供的api_key。
@@ -55,7 +56,7 @@ from dotenv import load_dotenv
 load_dotenv()
 # 从环境变量中读取api_key
 api_key = os.getenv('ZISHU_API_KEY')
-base_url = "http://43.200.7.56:8008/v1"
+base_url = "http://101.132.164.17:8000/v1"
 chat_model = "glm-4-flash"
 ```
 
