@@ -147,3 +147,64 @@ print(response)
 
 Thought: The current language of the user is: Chinese. I need to use the information provided by the web search tool to answer the question.
 Answer: 阿里巴巴2024年的ESG报告主要涵盖了公司在可持续发展方面的多项进展和成就。报告强调了公司的使命——“让天下没有难做的生意”，并通过技术创新和平台优势，支持中小微企业的发展，推动社会和环境的积极变化。在环境方面，阿里巴巴致力于实现碳中和，减少温室气体排放，并通过推动生态减排和绿色物流等措施，助力建设绿水青山。社会责任方面，阿里巴巴通过各种项目和倡议，如乡村振兴、社会应急响应、科技赋能解决社会问题等，展现了其对社会包容和韧性的贡献。治理方面，阿里巴巴强化了其ESG治理架构，确保了决策过程的透明度和有效性，并在隐私保护、数据安全和科技伦理等方面持续提升能力。总体而言，阿里巴巴集团的ESG报告展示了其在推动商业、社会和环境可持续发展方面的坚定承诺和实际行动。
+
+除此之外，可以使用智谱AI的GLM-4模型进行联网搜索，返回搜索结果的字符串。建议使用免费的 `glm-4-flash`
+
+```python
+from zhipuai import ZhipuAI
+from datetime import datetime
+# 定义Zhipu Web Search工具
+def zhipu_web_search_tool(query: str) -> str:
+    """
+    使用智谱AI的GLM-4模型进行联网搜索，返回搜索结果的字符串。
+    
+    参数:
+    - query: 搜索关键词
+
+    返回:
+    - 搜索结果的字符串形式
+    """
+    # 初始化客户端
+    client = ZhipuAI(api_key=ZHIPU_API_KEY)
+
+    # 获取当前日期
+    current_date = datetime.now().strftime("%Y-%m-%d")
+
+    print("current_date:", current_date)
+    
+    # 设置工具
+    tools = [{
+        "type": "web_search",
+        "web_search": {
+            "enable": True
+        }
+    }]
+
+    # 系统提示模板，包含时间信息
+    system_prompt = f"""你是一个具备网络访问能力的智能助手，在适当情况下，优先使用网络信息（参考信息）来回答，
+    以确保用户得到最新、准确的帮助。当前日期是 {current_date}。"""
+        
+    # 构建消息
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": query}
+    ]
+        
+    # 调用API
+    response = client.chat.completions.create(
+        model="glm-4-flash",
+        messages=messages,
+        tools=tools
+    )
+    
+    # 返回结果
+    return response.choices[0].message.content
+```
+
+运行一下智谱的联网搜索：
+```python
+rst = zhipu_web_search_tool("2025年为什么会闰六月？")
+print(rst)
+```
+current_date: 2025-02-08
+2025年实际上并不是闰六月。根据格里高利历（目前国际上广泛使用的日历），闰年的判断规则是：\n\n1. 如果年份能被4整除且不能被100整除，则是闰年。\n2. 如果年份能被400整除，则也是闰年。\n\n按照这个规则，2025年不能被4整除，因此它不是闰年。在格里高利历中，一年始终有12个月，不会有闰六月的情况。闰月的说法通常出现在农历（阴历）中，与格里高利历不同。在农历中，由于月亮绕地球一周的时间（大约29.5天）与太阳年（大约365.24天）不同步，因此需要通过设置闰月来调整。\n\n所以，2025年没有闰六月，这是一个误解或错误的信息。

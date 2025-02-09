@@ -270,7 +270,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 api_key = os.getenv('ZISHU_API_KEY')
-base_url = "http://43.200.7.56:8008/v1"
+base_url = "http://101.132.164.17:8000/v1"
 chat_model = "deepseek-chat"
 
 llm = LLM(api_key=api_key, base_url=base_url, model_name=chat_model)

@@ -11,7 +11,7 @@ python --version
 或者直接在cmd窗口输入`python`，看看进入的是哪个版本？
 
 ```powershell
-pip install metagpt==0.8.0
+pip install metagpt
 ```
 
 使用MetaGPT需要配置模型API。
@@ -87,13 +87,13 @@ config2.yaml
 ```yaml
 llm:
   api_type: 'ollama'
-  base_url: 'http://192.168.0.70:11434/api'
-  model: 'qwen2:7b'
+  base_url: 'http://192.168.0.123:11434/api'
+  model: 'qwen2.5:7b'
   
 repair_llm_output: true
 ```
 
-代码中192.168.0.70就是部署了大模型的电脑的IP，
+代码中192.168.0.123就是部署了大模型的电脑的IP，
 
 请根据实际情况进行替换
 
@@ -122,6 +122,9 @@ if __name__ == "__main__":
 ```
 
 执行上面的代码，如果输出的llm类型、密钥都没问题，就说明配置成功。
+API类型: LLMType.OLLAMA
+API密钥: sk-
+模型: qwen2.5:7b
 
 或者运行：
 
@@ -187,7 +190,7 @@ import json
 import requests
 # 192.168.0.70就是部署了大模型的电脑的IP，
 # 请根据实际情况进行替换
-BASE_URL = "http://192.168.0.70:11434/api/chat"
+BASE_URL = "http://192.168.0.123:11434/api/chat"
 payload = {
   "model": "qwen2:1.5b",
   "messages": [
@@ -210,7 +213,7 @@ import json
 import requests
 # 192.168.0.70就是部署了大模型的电脑的IP，
 # 请根据实际情况进行替换
-BASE_URL = "http://192.168.0.70:11434/api/chat"
+BASE_URL = "http://192.168.0.123:11434/api/chat"
 payload = {
   "model": "qwen2:1.5b",
   "messages": [

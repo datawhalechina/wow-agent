@@ -40,17 +40,123 @@ con.close()
 
 先配置对话模型和嵌入模型。模型的构建可以参考wow-rag课程的第二课（https://github.com/datawhalechina/wow-rag/tree/main/tutorials），里面介绍了非常多配置对话模型和嵌入模型的方式。可以直接用上一课用OurLLM创建的llm，这里采用了本地Ollama的对话模型和嵌入模型。各种配置方式都可以，只要能有个能用的llm和embedding就行。
 
+访问 [https://ollama.com](https://ollama.com)。
+
+下载Windows版本。直接安装。
+
+安装完成后，打开命令行窗口，输入 ollama，如果出现
+
+Usage:
+
+Available Commands:
+
+之类的信息，说明安装成功。
+
+我们用qwen2.5:7b这个模型就行，整个还不到5G。
+
+运行 ollama run qwen2.5:7b
+
+如果出现了success，就说明安装成功。
+
+然后会出现一个>>>符号，这就是对话窗口。可以直接输入问题。
+
+想要退出交互页面，直接输入 /bye 就行。斜杠是需要的。否则不是退出交互页面，而是对大模型说话，它会继续跟你聊。
+
+在浏览器中输入 127.0.0.1:11434，如果出现
+
+Ollama is running
+
+说明端口运行正常。
+
+安装完ollama后，我们还需要进行配置一下，主要是两个方面。
+
+第一：这时候模型是放在内存中的。我们希望把模型放在硬盘中。所以，我们可以在硬盘中建一个文件夹，比如：
+
+D:\programs\ollama\models
+
+然后新建系统环境变量。 
+
+变量名： OLLAMA\_MODELS  
+
+变量值： D:\programs\ollama\models  
+
+第二：这时候的大模型只能通过127.0.0.1:11434来访问。我们希望在局域网中的任何电脑都可以访问。这也是通过新建环境变量来解决。
+
+变量名： OLLAMA\_HOST 
+
+变量值： 0.0.0.0:11434 
+
+这样就完成了配置。是不是非常简单方便？
+
+```python
+# 我们先用requets库来测试一下大模型
+import json
+import requests
+# 192.168.0.123就是部署了大模型的电脑的IP，
+# 请根据实际情况进行替换
+BASE_URL = "http://192.168.0.123:11434/api/chat"
+payload = {
+  "model": "qwen2.5:7b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "请写一篇1000字左右的文章，论述法学专业的就业前景。"
+    }
+  ]
+}
+response = requests.post(BASE_URL, json=payload)
+print(response.text)
+```
+
+如果想要流式输出，怎么办呢？
+
+
+```python
+# 我们先用requets库来测试一下大模型
+import json
+import requests
+# 192.168.0.123就是部署了大模型的电脑的IP，
+# 请根据实际情况进行替换
+BASE_URL = "http://192.168.0.123:11434/api/chat"
+payload = {
+  "model": "qwen2.5:7b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "请写一篇1000字左右的文章，论述法学专业的就业前景。"
+    }
+  ],
+  "stream": True
+}
+response = requests.post(BASE_URL, json=payload, stream=True)  # 在这里设置stream=True告诉requests不要立即下载响应内容  
+# 检查响应状态码  
+if response.status_code == 200:  
+    # 使用iter_content()迭代响应体  
+    for chunk in response.iter_content(chunk_size=1024):  # 你可以设置chunk_size为你想要的大小  
+        if chunk:  
+            # 在这里处理chunk（例如，打印、写入文件等）  
+            rtn = json.loads(chunk.decode('utf-8')) # 假设响应是文本，并且使用UTF-8编码  
+            print(rtn["message"]["content"], end="")
+else:  
+    print(f"Error: {response.status_code}")  
+
+# 不要忘记关闭响应  
+response.close()
+```
+
+注意以上是Windows电脑的安装方法。苹果电脑按照上述安装好后，可以在终端进行聊天，但是用requests调用的时候，会报错找不到模型。这个问题我们暂时还没有解决方案。
+
 
 ```python
 # 配置对话模型
 from llama_index.llms.ollama import Ollama
-llm = Ollama(base_url="http://192.168.0.123:11434", model="qwen2:7b")
+llm = Ollama(base_url="http://192.168.0.123:11434", model="qwen2.5:7b")
 ```
 
 ```python
 # 配置Embedding模型
 from llama_index.embeddings.ollama import OllamaEmbedding
-embedding = OllamaEmbedding(base_url="http://192.168.0.123:11434", model_name="qwen2:7b")
+embedding = OllamaEmbedding(base_url="http://192.168.0.123:11434", model_name="qwen2.5:7b")
 ```
 
 
@@ -63,7 +169,7 @@ print(response)
 
 ```python
 # 测试嵌入模型
-emb = embedding.get_text_embedding("你好呀呀")
+emb = embedding.get_text_embedding("你是谁？")
 len(emb), type(emb)
 ```
 输出 (1024, list)
