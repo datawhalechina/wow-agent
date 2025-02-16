@@ -2,19 +2,35 @@
 
 # **第02课-安装和配置**
 
-请确保你的系统已安装Python 3.9+。你可以通过以下命令进行检查：
+请确保你的系统已安装Python 3.9+且版本低于3.12。你可以通过以下命令进行检查：
 
 ```powershell
 python --version
 ```
 
 或者直接在cmd窗口输入`python`，看看进入的是哪个版本？
-
+**metagpt安装**
+1.pip安装（如使用该方法后续运行实例还需手动拉取metagpt/ext目录，因为pip的metagpt包没有ext目录）
 ```powershell
 pip install metagpt
 ```
-
-使用MetaGPT需要配置模型API。
+2.git拉取
+须先检查是否安装git，没有的话请先安装git。
+打开刚刚安装的 VS Code，点击 Clone Git Repository，提前将 MetaGPT 的代码仓库复制好：
+https://github.com/geekan/MetaGPT
+如果该链接不能拉取metagithub仓库，请尝试使用其他镜像或代理，例如：
+  使用 gitclone.com 代理
+  git clone https://gitclone.com/github.com/geekan/MetaGPT.git
+  使用 fastgit.org 代理
+  git clone https://hub.fastgit.org/geekan/MetaGPT.git
+  使用 kgithub.com 代理
+  git clone https://kgithub.com/geekan/MetaGPT.git
+然后在当前环境终端输入以下命令：
+  pip install -e .
+  #如需使用RAG模块，继续执行以下代码：
+  pip install -e .[rag] 
+**metagpt配置**
+完成metagpt安装后，使用MetaGPT需要配置模型API。
 
 1. 在当前工作目录中创建一个名为config的文件夹，并在其中添加一个名为config2.yaml的新文件。
 2. 将示例config2.yaml文件的内容复制到您的新文件中。
