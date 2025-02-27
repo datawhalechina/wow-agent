@@ -9,21 +9,29 @@
 ## 目录
 
 - 第01课-什么是wow-agent
-#### task01 openai库搭建AI Agent
+
+### task01 openai库搭建AI Agent
+
 - 第02课-手搓一个土得掉渣的Agent
 - 第03课-OpenAI实现简历信息提取智能体
 - 第04课-OpenAI实现阅卷智能体
-#### task02 Llama-index库搭建AI Agent
+
+### task02 Llama-index库搭建AI Agent
+
 - 第05课-用Llama-index创建Agent
 - 第06课-数据库对话Agent
 - 第07课-RAG接入Agent
 - 第08课-搜索引擎Agent
-#### task03 Zigent库搭建AI Agent
+
+### task03 Zigent库搭建AI Agent
+
 - 第09课-初识Zigent
 - 第10课-Zigent实现哲学家多智能体
 - 第11课-Zigent实现教程编写智能体
 - 第12课-Zigent实现出题智能体
-#### task04 metaGPT库搭建AI Agent
+
+### task04 metaGPT库搭建AI Agent
+
 - 第13课-metaGPT安装和配置
 - 第14课-metaGPT快速尝鲜
 - 第15课-单动作单智能体
@@ -37,9 +45,7 @@
 - 第23课-多动作多智能体
 - 第24课-狼人杀智能体
 - 第25课-虚拟小镇智能体
-
-
-
+- 第26课-软件公司智能体
 
 ## 贡献者名单
 
@@ -47,8 +53,7 @@
 | :----| :---- | :---- |
 | [黎伟](https://github.com/omige) | 项目负责人 | 规划教程整体 |
 | [胡琦](https://github.com/hu-qi) | zigent章节 | 塾员 |
-| 珞索 | metagpt章节 | 塾员 | 
-
+| [珞索](https://github.com/galaAella) | metagpt章节 | 塾员 |
 
 ## 参与贡献
 
