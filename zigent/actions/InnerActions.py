@@ -35,7 +35,9 @@ class FinishAction(BaseAction):
             params_doc=params_doc,
         )
 
-    def __call__(self, response):
+    def __call__(self, response=None, **kwargs):
+        if response is None:
+            return DEF_INNER_ACT_OBS
         return response
 
 

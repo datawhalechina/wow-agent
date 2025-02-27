@@ -35,7 +35,6 @@ from zigent.agents import ABCAgent, BaseAgent
 from zigent.llm.agent_llms import LLM
 from zigent.commons import TaskPackage
 from zigent.actions.BaseAction import BaseAction
-from zigent.logging.multi_agent_log import AgentLogger
 from duckduckgo_search import DDGS
 ```
 
