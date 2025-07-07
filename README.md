@@ -54,6 +54,7 @@
 | [黎伟](https://github.com/omige) | 项目负责人 | 规划教程整体 |
 | [胡琦](https://github.com/hu-qi) | zigent章节 | 塾员 |
 | [珞索](https://github.com/galaAella) | metagpt章节 | 塾员 |
+| [陈嘉诺](https://github.com/Tangent-90C) | openai-agent SDK章节 | 塾员 |
 
 ## 参与贡献
 
