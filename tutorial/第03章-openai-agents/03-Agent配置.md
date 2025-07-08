@@ -16,9 +16,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
@@ -61,9 +61,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
@@ -137,9 +137,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
@@ -180,6 +180,17 @@ if __name__ == "__main__":
 运行上面代码会输出：
 The user, John, is 47 years old.
 
+发送到LLM的大模型上下文需要在提示词中构建。
+
+当调用大模型时，它唯一能获取的数据来自对话历史记录。这意味着如果您想让大模型感知新数据，必须通过以下方式将其加入对话历史：
+
+添加到Agent的instructions。这也被称为"系统提示词"或"开发者消息"。系统提示词可以是静态字符串，也可以是接收上下文并输出字符串的动态函数。这种策略适用于始终需要的信息（例如用户名或当前日期）
+调用Runner.run函数时添加到input。这与instructions策略类似，但允许您在命令链较低层级添加消息
+通过函数工具暴露。这适用于_按需获取_上下文——大模型可自主决定何时需要数据，并通过调用工具获取
+使用检索或网络搜索。这些特殊工具能从文件/数据库（检索）或互联网（网络搜索）获取相关数据，对于生成基于相关上下文数据的"接地气"响应非常有用
+
+
+
 
 
 ## 动态指令
@@ -211,9 +222,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 

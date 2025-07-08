@@ -446,7 +446,7 @@ async with MCPServerStdio(
 ```
 下面是运行代码
 
-```
+```python
 import asyncio
 
 from agents import Agent, Runner, set_tracing_disabled
@@ -491,7 +491,8 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 运行结果大概是这样
-```
+
+```bash
 Running: 现在这个目录下有哪些文件？
 在目录 `E:\\夏令营\\复杂推理` 下有以下文件：
 

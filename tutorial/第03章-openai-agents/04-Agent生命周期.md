@@ -37,9 +37,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
@@ -99,9 +99,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
@@ -168,9 +168,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
@@ -227,9 +227,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
@@ -287,9 +287,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
@@ -419,9 +419,9 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('azure_key')
-base_url = os.getenv('azure_endpoint')
-chat_model = "azure/gpt-4o"
+api_key = os.getenv('mistral_key')
+base_url = 'https://api.mistral.ai/v1'
+chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
