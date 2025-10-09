@@ -55,6 +55,7 @@
 | [胡琦](https://github.com/hu-qi) | zigent章节 | 塾员 |
 | [珞索](https://github.com/galaAella) | metagpt章节 | 塾员 |
 | [陈嘉诺](https://github.com/Tangent-90C) | openai-agent SDK章节 | 塾员 |
+| [汤耀月](https://github.com/SuTang-vain) | openai-agent SDK章节项目说明 | 塾员         |
 
 ## 参与贡献
 
