@@ -3,9 +3,6 @@
 🤖 OpenAI Agents SDK 官方框架
 从安装到多模型集成，构建你的智能体应用
 
-GitHub stars GitHub forks Python zread
-在线阅读 English Version 讨论交流  
-
 🎯 系统化学习  |    完整的智能体框架体系	
 
 🛠️ 动手实践      |    快速集成与测试案例	
@@ -136,8 +133,11 @@ openai-agents-sdk/
 
 ## 关于 Datawhale
 
-**Datawhale公众号二维码粘贴处**
-扫描二维码关注 Datawhale 公众号，获取更多优质开源内容  
+<div align=center>
+<p>扫描二维码关注 Datawhale 公众号，获取更多优质开源内容  </p>
+<img src="https://raw.githubusercontent.com/datawhalechina/pumpkin-book/master/res/qrcode.jpeg" width = "180" height = "180">
+</div>
+
 
 ------
 
