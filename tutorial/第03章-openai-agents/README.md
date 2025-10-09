@@ -1,7 +1,6 @@
 # OpenAI Agents SDK | 大模型智能体框架实战指南
 
-🤖 OpenAI Agents SDK 官方框架
-从安装到多模型集成，构建你的智能体应用
+🤖 OpenAI Agents SDK 官方框架——从安装到多模型集成，构建你的智能体应用
 
 🎯 系统化学习  |    完整的智能体框架体系	
 
@@ -13,7 +12,7 @@
 
 ## 项目简介（中文 | English）
 
-本项目是一个面向大模型应用开发者的OpenAI Agents SDK实战教程，旨在通过简明路径和代码实践，帮助开发者快速上手2025年3月推出的官方智能体框架。该框架与MCP协议深度融合，默认使用OpenAI Chat Completions API，但通过LiteLLM轻松切换到DeepSeek、智谱GLM、阿里DashScope或Mistral等模型，构建高效的多代理工作流和智能问答系统。
+本项目是一个面向大模型应用开发者的OpenAI Agents SDK实战教程，旨在通过简明路径和代码实践，帮助开发者快速上手2025年3月推出的官方智能体框架。该框架与MCP协议深度融合，默认使用OpenAI Chat Completions API，同时通过LiteLLM轻松切换到DeepSeek、智谱GLM、阿里DashScope或Mistral等模型，构建高效的多代理工作流和智能问答系统。
 
 主要内容包括：  
 
@@ -56,38 +55,70 @@
 
 ## 内容大纲
 
-**第一部分：框架入门**  
+**第一部分：框架入门**
 
-- 01-安装与配置.md 📖 查看章节  
-  - 虚拟环境搭建  
-  - 依赖安装与API密钥管理
-- 02-初步尝鲜.md 📖 查看章节  
-  - Agents SDK简介与MCP融合  
-  - 核心组件：代理、Runner与工具
+01-安装与配置.md 📖 查看章节
 
-**第二部分：模型集成**  
+- 虚拟环境搭建
+- 依赖安装与API密钥管理
 
-- 03-Agent配置.md 📖 查看章节  
-  - Hello World代理示例  
-  - 同步/异步运行
-- 04-Agent生命周期.md 📖 查看章节  
-  - LiteLLM配置DeepSeek  
-  - 智谱GLM与Mistral实践
+02-初步尝鲜.md 📖 查看章节
 
-**第三部分：高级特性**  
+- Agents SDK简介与MCP融合
+- 核心组件：代理、Runner与工具
 
-- 05-运行.md 📖 查看章节  
-  - 历史管理与SQLite/Redis支持  
-  - 内置追踪与调试
-- 06-工具.md 📖 查看章节  
-  - 详细日志启用  
-  - 模型设置与敏感数据保护
+**第二部分：模型集成**
+
+03-Agent配置.md 📖 查看章节
+
+- Hello World代理示例
+- 同步/异步运行
+
+04-Agent生命周期.md 📖 查看章节
+
+- LiteLLM配置DeepSeek
+- 智谱GLM与Mistral实践
+
+**第三部分：高级特性**
+
+05-运行.md 📖 查看章节
+
+- 历史管理与SQLite/Redis支持
+- 内置追踪与调试
+
+06-工具.md 📖 查看章节
+
+- 详细日志启用
+- 模型设置与敏感数据保护
 
 **第四部分：扩展应用**
 
-- 07-MCP.md 📖 查看章节  
-  - Handoff与工具集成  
-  - 生产级循环优化
+07-MCP.md 📖 查看章节
+
+- Handoff与工具集成
+- 生产级循环优化
+
+**第五部分：框架安全与进阶**
+
+08-移交.md 📖 查看章节
+
+- 代理移交机制
+- 安全移交流程
+
+09-追踪.md 📖 查看章节
+
+- 追踪工具使用
+- 数据隐私保护
+
+10-护栏.md 📖 查看章节
+
+- 安全限制与守卫
+- 异常处理策略
+
+11-编排.md 📖 查看章节
+
+- 多代理协调
+- 生产级编排优化
 
 ## 任务安排
 
@@ -97,17 +128,16 @@
 | Task01           | 编程配置小试牛刀 (第1、2节)      | 截止时间 10月15日03:00 |
 | Task02           | Agent模块 (第3、4、5节)          | 截止时间 10月18日03:00 |
 | Task03           | 工具模块 (第6、7节)              | 截止时间 10月20日03:00 |
-| Task04           | 综合Agent开发 (第8、9、10、11节) | 截止时间 10月24日03:00 |
+| Task04           | 综合Agent开发 (第8、9、10、11节) | 截止时间 10月22日03:00 |
+| Task05           | 安全（第10、11节）               | 截止时间 10月24日03:00 |
 
 ## 目录结构说明
 
-```
 openai-agents-sdk/
 ├── docs/           # 教程文档
 ├── code/           # 代码示例
 ├── examples/       # 实战案例
-└── README.md       # 项目说明
-```
+└── README.md       # 项目说明  
 
 ## 贡献者名单
 
@@ -133,11 +163,8 @@ openai-agents-sdk/
 
 ## 关于 Datawhale
 
-<div align=center>
-<p>扫描二维码关注 Datawhale 公众号，获取更多优质开源内容  </p>
-<img src="https://raw.githubusercontent.com/datawhalechina/pumpkin-book/master/res/qrcode.jpeg" width = "180" height = "180">
-</div>
-
+**Datawhale公众号二维码粘贴处**
+扫描二维码关注 Datawhale 公众号，获取更多优质开源内容  
 
 ------
 
