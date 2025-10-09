@@ -104,11 +104,13 @@ GitHub stars GitHub forks Python zread
 
 ## 目录结构说明
 
+```
 openai-agents-sdk/
 ├── docs/           # 教程文档
 ├── code/           # 代码示例
 ├── examples/       # 实战案例
-└── README.md       # 项目说明  
+└── README.md       # 项目说明
+```
 
 ## 贡献者名单
 
