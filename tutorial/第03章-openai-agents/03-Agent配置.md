@@ -157,7 +157,17 @@ class UserInfo:
     uid: int
 
 @function_tool
-async def fetch_user_age(wrapper: RunContextWrapper[UserInfo]) -> str:  
+async def fetch_user_age(wrapper: RunContextWrapper[UserInfo]) -> str:
+    """
+    获取当前用户的年龄信息。
+
+    Args:
+        wrapper (RunContextWrapper[UserInfo]): 包含用户上下文信息的包装器，
+            可通过 wrapper.context 访问 UserInfo 实例。
+
+    Returns:
+        str: 格式化的年龄字符串，例如 "User John is 47 years old"。
+    """  
     # 可以看到，所有的工具都可以访问到这个wrapper.context
     return f"User {wrapper.context.name} is 47 years old"
 
