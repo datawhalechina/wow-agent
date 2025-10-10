@@ -132,12 +132,13 @@
 | Task05           | 安全（第10、11节）               | 截止时间 10月24日03:00 |
 
 ## 目录结构说明
-
+```
 openai-agents-sdk/
 ├── docs/           # 教程文档
 ├── code/           # 代码示例
 ├── examples/       # 实战案例
 └── README.md       # 项目说明  
+```
 
 ## 贡献者名单
 
@@ -163,8 +164,10 @@ openai-agents-sdk/
 
 ## 关于 Datawhale
 
-**Datawhale公众号二维码粘贴处**
-扫描二维码关注 Datawhale 公众号，获取更多优质开源内容  
+<div align=center>
+<p>扫描二维码关注 Datawhale 公众号，获取更多优质开源内容  ：Datawhale</p>
+<img src="https://raw.githubusercontent.com/datawhalechina/pumpkin-book/master/res/qrcode.jpeg" width = "180" height = "180">
+</div>
 
 ------
 
