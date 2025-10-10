@@ -22,9 +22,15 @@ chat_model = "mistral/mistral-small-latest"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
-@function_tool
-def get_weather(city: str) -> str:
-    return f"The weather in {city} is sunny"
+@function_tool 
+def get_weather(city: str) -> str: 
+    """查询一个城市的天气
+    Args:
+        city: 要查询天气的城市
+    """
+    # 注：上方的字符串是get_weather的函数描述，用于告诉Agent该函数用法，需详细填写
+    print(f"天气查询工具被调用了，查询的是{city}")
+    return f"The weather in {city} is sunny" 
 
 agent = Agent(
     name="天气助手",
