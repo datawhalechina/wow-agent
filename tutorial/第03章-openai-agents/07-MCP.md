@@ -436,8 +436,14 @@ Running: 明天从广州到杭州可以买哪些火车票？
 **Docker 安装**：https://docs.docker.com/engine/install/
 
 
-接着我们在代码中试一下运行本地文件服务的MCP接口，在此之前请安装好NodeJS。
-对应的openai agent SDK的stdio接口是这个。
+接着我们在代码中试一下运行本地文件服务的MCP接口，在此之前请安装好NodeJS。若网络超时则切换nodejs为国内镜像源再试
+
+```
+# 给NodeJS设置淘宝镜像源 
+npm config set registry https://registry.npmmirror.com/
+```
+
+本地文件服务的MCP接口对应的openai agent SDK的stdio接口是这个。
 ```python
 async with MCPServerStdio(
     params={
