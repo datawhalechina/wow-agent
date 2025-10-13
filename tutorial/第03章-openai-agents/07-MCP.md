@@ -384,6 +384,8 @@ Running: 明天从广州到杭州可以买哪些火车票？
 #### MCP的使用（本地部署）
 在本地部署MCP服务的关键，是要有能运行MCP服务的环境。通常会使用Python或NodeJS来运行MCP服务，并用uvx(Python)、npx(NodeJS)、docker打包运行环境配置并一键运行MCP服务。
 
+本地部署 MCP 服务时选择这三者，核心是从环境打包与适配角度解决不同场景需求：uvx 为 Python 类 MCP 服务打包并快速调用 Python 依赖环境，npx 为 NodeJS 类 MCP 服务打包并直接启用 NodeJS 依赖环境，docker 则将 MCP 服务及所有运行依赖（含语言环境、库、配置）整体打包成独立容器，三者分别覆盖单语言轻量环境打包与跨语言全环境打包需求，确保服务能在对应环境中稳定启动。
+
 举个例子，假设我们要运行这个MCP服务：https://mcpmarket.cn/server/685a2f3c7aaa700924977a5e
 它会给出以下配置：
 ```json
@@ -426,6 +428,7 @@ Running: 明天从广州到杭州可以买哪些火车票？
 ```
 
 这里放下这3个常用的MCP服务运行环境安装文档，具体怎么安装就略了。
+
 **npx(NodeJS) 安装**：https://nodejs.org/zh-cn/download
 
 **uvx(Python) 安装**：https://uv.doczh.com/getting-started/installation/ 
