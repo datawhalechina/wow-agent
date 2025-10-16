@@ -248,10 +248,10 @@ llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 @dataclass
 class PatInfo:
     ip_type: str
-    def advice() -> str:
-        if ip_type=="发明":
+    def advice(self) -> str:
+        if self.ip_type=="发明":
             return "重点为用户讲解发明专利申请的实质审查要求"
-        elif ip_type=="实用新型":
+        elif self.ip_type=="实用新型":
             return "重点为用户讲解实用新型专利申请的形式审查要求"
 
 def dynamic_instructions(
