@@ -465,6 +465,7 @@ npx -y @modelcontextprotocol/server-filesystem D:/学习资料
 
 ```python
 import asyncio
+import os
 from dotenv import load_dotenv
 
 from agents import Agent, Runner, set_tracing_disabled
