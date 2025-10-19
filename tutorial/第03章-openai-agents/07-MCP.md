@@ -307,13 +307,14 @@ from agents import Agent, Runner, set_tracing_disabled
 from agents.extensions.models.litellm_model import LitellmModel
 from agents.mcp.server import MCPServerSse
 from agents.model_settings import ModelSettings
-
+from dotenv import load_dotenv
+import os
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('OPENAI_API_KEY')
-base_url = os.getenv('OPENAI_BASE_URL')
-chat_model = "gpt-4o"
+api_key = os.getenv('DEEPSEEK_API_KEY')
+base_url = os.getenv('https://api.deepseek.com/v1')
+chat_model = "deepseek/deepseek-chat"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 
