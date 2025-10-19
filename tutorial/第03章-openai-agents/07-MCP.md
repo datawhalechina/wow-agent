@@ -301,6 +301,7 @@ https://mcp.api-inference.modelscope.net/xxxxxxxxxxxxxx/sse
 然后运行代码即可。
 ```python
 import asyncio
+from dotenv import load_dotenv
 
 from agents import Agent, Runner, set_tracing_disabled
 from agents.extensions.models.litellm_model import LitellmModel
@@ -457,6 +458,7 @@ async with MCPServerStdio(
 
 ```python
 import asyncio
+from dotenv import load_dotenv
 
 from agents import Agent, Runner, set_tracing_disabled
 from agents.extensions.models.litellm_model import LitellmModel
