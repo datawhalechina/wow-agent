@@ -457,8 +457,11 @@ async with MCPServerStdio(
 ```
 下面是运行代码
 
-> 建议运行之前手动执行 npx -y @modelcontextprotocol/server-filesystem D:/学习资料
-> 完成MCP初始化，其中"D:/学习资料"替换成你电脑实际存在的路径
+建议运行之前手动执行
+```bash
+npx -y @modelcontextprotocol/server-filesystem D:/学习资料
+```
+完成MCP初始化，其中"D:/学习资料"替换成你电脑实际存在的路径
 
 ```python
 import asyncio
