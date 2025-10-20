@@ -457,8 +457,15 @@ async with MCPServerStdio(
 ```
 下面是运行代码
 
+建议运行之前手动执行
+```bash
+npx -y @modelcontextprotocol/server-filesystem D:/学习资料
+```
+完成MCP初始化，其中"D:/学习资料"替换成你电脑实际存在的路径
+
 ```python
 import asyncio
+import os
 from dotenv import load_dotenv
 
 from agents import Agent, Runner, set_tracing_disabled
@@ -469,9 +476,9 @@ from agents.model_settings import ModelSettings
 # 加载环境变量
 load_dotenv()
 # 从环境变量中读取api_key
-api_key = os.getenv('OPENAI_API_KEY')
-base_url = os.getenv('OPENAI_BASE_URL')
-chat_model = "gpt-4o"
+api_key = os.getenv('DEEPSEEK_API_KEY')
+base_url = "https://api.deepseek.com/v1"
+chat_model = "deepseek/deepseek-chat"
 set_tracing_disabled(disabled=True)
 llm = LitellmModel(model=chat_model, api_key=api_key, base_url=base_url)
 samples_dir = r"E:\夏令营\复杂推理"
