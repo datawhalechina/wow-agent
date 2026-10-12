@@ -61,6 +61,12 @@
 
 ## 参与贡献
 
+本地 Zigent 框架的离线回归测试可在仓库根目录运行，仅需安装 `pydantic`，无需 API Key：
+
+```bash
+python -m unittest discover -s tests -v
+```
+
 - 如果你发现了一些问题，可以提Issue进行反馈，如果提完没有人回复你可以联系[胡琦](https://github.com/hu-qi)同学进行反馈跟进~
 - 如果你想参与贡献本项目，可以提Pull request，如果提完没有人回复你可以联系[黎伟](https://github.com/omige)同学进行反馈跟进~
 - 如果你对 Datawhale 很感兴趣并想要发起一个新的项目，请按照[Datawhale开源项目指南](https://github.com/datawhalechina/DOPMC/blob/main/GUIDE.md)进行操作即可~
